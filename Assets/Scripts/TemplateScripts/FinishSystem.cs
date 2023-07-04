@@ -20,13 +20,8 @@ public class FinishSystem : MonoSingleton<FinishSystem>
         GameManager gameManager = GameManager.Instance;
         Buttons buttons = Buttons.Instance;
         MoneySystem moneySystem = MoneySystem.Instance;
-        if (gameManager.level % 10 == 0)
-            StartCoroutine(BarSystem.Instance.BarImageFillAmountIenum());
         LevelManager.Instance.LevelCheck();
         buttons.winPanel.SetActive(true);
-        if (gameManager.level % 10 == 0)
-            buttons.barPanel.SetActive(true);
-        buttons.finishGameMoneyText.text = moneySystem.NumberTextRevork(gameManager.addedMoney);
         gameManager.gameStat = GameManager.GameStat.finish;
         moneySystem.MoneyTextRevork(gameManager.addedMoney);
     }

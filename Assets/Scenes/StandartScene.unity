@@ -722,8 +722,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainSource: {fileID: 330585548}
   mainMusic: {fileID: 0}
-  bloomEffect: {fileID: 0}
-  goldEffect: {fileID: 0}
+  star: {fileID: 0}
+  finish: {fileID: 0}
+  bomb: {fileID: 0}
 --- !u!114 &186173616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -749,8 +750,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d9f23fe3d189d545ab444ff3047afe7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkerLevelMod: 0
-  walkerCountLevelMod: 0
 --- !u!114 &186173618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -764,117 +763,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   field:
-    castleHealth: 0
-    gunDistance: 0
-    gunAtackPower: 0
-    walkerHealth: 0
-    walkerCastleHitPower: 0
-    walkerCount: 0
-    walkerTypeCount: 0
-    mainDistance: 0
-    mainDamageSpeed: 0
-    rivalDistance: 0
-    mainHealth: 0
-    mainDamage: 0
-    rivalHealth: 0
-    rivalDamage: 0
-    gunReloadTime: 0
+    sizeCount: 0
+    floorCount: 0
+    objectCount: 0
   standart:
-    castleHealth: 0
-    gunDistance: 0
-    gunAtackPower: 0
-    walkerHealth: 0
-    walkerCastleHitPower: 0
-    walkerCount: 0
-    walkerTypeCount: 0
-    mainDistance: 0
-    mainDamageSpeed: 0
-    rivalDistance: 0
-    mainHealth: 0
-    mainDamage: 0
-    rivalHealth: 0
-    rivalDamage: 0
-    gunReloadTime: 0
+    sizeCount: 0
+    floorCount: 0
+    objectCount: 0
   factor:
-    castleHealth: 0
-    gunDistance: 0
-    gunAtackPower: 0
-    walkerHealth: 0
-    walkerCastleHitPower: 0
-    walkerCount: 0
-    walkerTypeCount: 0
-    mainDistance: 0
-    mainDamageSpeed: 0
-    rivalDistance: 0
-    mainHealth: 0
-    mainDamage: 0
-    rivalHealth: 0
-    rivalDamage: 0
-    gunReloadTime: 0
+    sizeCount: 0
+    floorCount: 0
+    objectCount: 0
   constant:
-    castleHealth: 0
-    gunDistance: 0
-    gunAtackPower: 0
-    walkerHealth: 0
-    walkerCastleHitPower: 0
-    walkerCount: 0
-    walkerTypeCount: 0
-    mainDistance: 0
-    mainDamageSpeed: 0
-    rivalDistance: 0
-    mainHealth: 0
-    mainDamage: 0
-    rivalHealth: 0
-    rivalDamage: 0
-    gunReloadTime: 0
+    sizeCount: 0
+    floorCount: 0
+    objectCount: 0
   maxFactor:
-    castleHealth: 0
-    gunDistance: 0
-    gunAtackPower: 0
-    walkerHealth: 0
-    walkerCastleHitPower: 0
-    walkerCount: 0
-    walkerTypeCount: 0
-    mainDistance: 0
-    mainDamageSpeed: 0
-    rivalDistance: 0
-    mainHealth: 0
-    mainDamage: 0
-    rivalHealth: 0
-    rivalDamage: 0
-    gunReloadTime: 0
+    sizeCount: 0
+    floorCount: 0
+    objectCount: 0
   max:
-    castleHealth: 0
-    gunDistance: 0
-    gunAtackPower: 0
-    walkerHealth: 0
-    walkerCastleHitPower: 0
-    walkerCount: 0
-    walkerTypeCount: 0
-    mainDistance: 0
-    mainDamageSpeed: 0
-    rivalDistance: 0
-    mainHealth: 0
-    mainDamage: 0
-    rivalHealth: 0
-    rivalDamage: 0
-    gunReloadTime: 0
+    sizeCount: 0
+    floorCount: 0
+    objectCount: 0
   fieldPrice:
-    castleHealth: 0
-    gunDistance: 0
-    gunAtackPower: 0
-    walkerHealth: 0
-    walkerCastleHitPower: 0
-    walkerCount: 0
-    walkerTypeCount: 0
-    mainDistance: 0
-    mainDamageSpeed: 0
-    rivalDistance: 0
-    mainHealth: 0
-    mainDamage: 0
-    rivalHealth: 0
-    rivalDamage: 0
-    gunReloadTime: 0
+    sizeCount: 0
+    floorCount: 0
+    objectCount: 0
 --- !u!114 &186173619
 MonoBehaviour:
   m_ObjectHideFlags: 0

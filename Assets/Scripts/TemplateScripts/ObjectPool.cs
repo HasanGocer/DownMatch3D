@@ -75,6 +75,14 @@ public class ObjectPool : MonoSingleton<ObjectPool>
         obj.SetActive(true);
         return obj;
     }
+    public GameObject GetPooledObject(int objectType, Vector3 objectPos, Transform parent)
+    {
+        GameObject obj = pools[objectType].pooledObjects.Dequeue();
+        obj.transform.position = objectPos;
+        obj.SetActive(true);
+        obj.transform.SetParent(parent);
+        return obj;
+    }
     public GameObject GetPooledObject(int objectType, Vector3 objectPos, Vector3 objectRotation)
     {
         GameObject obj = pools[objectType].pooledObjects.Dequeue();

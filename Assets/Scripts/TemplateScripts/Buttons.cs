@@ -12,7 +12,7 @@ public class Buttons : MonoSingleton<Buttons>
     [Space(10)]
 
     [SerializeField] private GameObject _globalPanel;
-    public TMP_Text moneyText, levelText;
+    public TMP_Text moneyText, levelText, nextLevelText;
 
     [Header("Start_Panel")]
     [Space(10)]
@@ -27,6 +27,7 @@ public class Buttons : MonoSingleton<Buttons>
     [SerializeField] private GameObject _settingGame;
 
     [SerializeField] private Sprite _red, _green;
+    [SerializeField] private Button _homeButton;
     [SerializeField] private Button _settingBackButton;
     [SerializeField] private Button _soundButton, _vibrationButton;
 
@@ -34,37 +35,88 @@ public class Buttons : MonoSingleton<Buttons>
     [Space(10)]
 
     public GameObject winPanel;
-    public GameObject failPanel;
-    public GameObject barPanel;
-    [SerializeField] private Button _winPrizeButton, _winEmptyButton, _failButton;
+    public GameObject failPanel, newObjectPanel;
+    public GameObject newObjectGO;
+    [SerializeField] private Button _winPrizeButton, _winEmptyButton, _failButton, _newObjectButton;
     [SerializeField] int finishWaitTime;
-
-    public TMP_Text finishGameMoneyText;
 
     [Header("Loading_Panel")]
     [Space(10)]
 
     [SerializeField] GameObject _loadingPanel;
-    [SerializeField] int _loadingScreenCountdownTime;
+    [SerializeField] Image _loadingLerpBar;
+    [SerializeField] int _loadingLerpSpeed;
     [SerializeField] int _startSceneCount;
+
 
     private void Start()
     {
         ButtonPlacement();
         SettingPlacement();
         levelText.text = GameManager.Instance.level.ToString();
+        nextLevelText.text = (GameManager.Instance.level + 1).ToString();
     }
 
     public IEnumerator LoadingScreen()
     {
+        if (Load.Instance != null)
+            if (Load.Instance.isNext)
+            {
+                yield return null;
+                PlacementSystem.Instance.StartPlacement();
+                TaskSystem.Instance.FirstStart();
 
-        _loadingPanel.SetActive(true);
-        _globalPanel.SetActive(false);
-        startPanel.SetActive(false);
-        yield return new WaitForSeconds(_loadingScreenCountdownTime);
-        _loadingPanel.SetActive(false);
-        _globalPanel.SetActive(true);
-        startPanel.SetActive(true);
+                _loadingPanel.SetActive(false);
+                _globalPanel.SetActive(true);
+                startPanel.SetActive(false);
+                StartButton();
+            }
+            else
+            {
+                PlacementSystem.Instance.StartPlacement();
+                TaskSystem.Instance.FirstStart();
+                _loadingPanel.SetActive(true);
+                _globalPanel.SetActive(false);
+                startPanel.SetActive(false);
+
+                float lerpCount = 0;
+
+                while (true)
+                {
+                    lerpCount += Time.deltaTime * _loadingLerpSpeed;
+                    _loadingLerpBar.fillAmount = Mathf.Lerp(0, 1, lerpCount);
+                    yield return new WaitForSeconds(Time.deltaTime);
+                    if (_loadingLerpBar.fillAmount == 1) break;
+                }
+
+                _loadingPanel.SetActive(false);
+                _globalPanel.SetActive(true);
+                startPanel.SetActive(true);
+
+            }
+        else
+        {
+            PlacementSystem.Instance.StartPlacement();
+            TaskSystem.Instance.FirstStart();
+            _loadingPanel.SetActive(true);
+            _globalPanel.SetActive(false);
+            startPanel.SetActive(false);
+
+            float lerpCount = 0;
+
+            while (true)
+            {
+                lerpCount += Time.deltaTime * _loadingLerpSpeed;
+                _loadingLerpBar.fillAmount = Mathf.Lerp(0, 1, lerpCount);
+                yield return new WaitForSeconds(Time.deltaTime);
+                if (_loadingLerpBar.fillAmount == 1) break;
+            }
+
+            _loadingPanel.SetActive(false);
+            _globalPanel.SetActive(true);
+            startPanel.SetActive(true);
+
+        }
 
     }
     public IEnumerator NoThanxOnActive()
@@ -112,13 +164,31 @@ public class Buttons : MonoSingleton<Buttons>
         _winEmptyButton.onClick.AddListener(() => StartCoroutine(WinButton()));
         _failButton.onClick.AddListener(() => StartCoroutine(FailButton()));
         _startButton.onClick.AddListener(StartButton);
+        _homeButton.onClick.AddListener(HomeButton);
+        _newObjectButton.onClick.AddListener(NewObjectButton);
     }
 
+    private void NewObjectButton()
+    {
+        winPanel.SetActive(true);
+        newObjectPanel.SetActive(false);
+        newObjectGO.SetActive(false);
+    }
+    private void HomeButton()
+    {
+        Load.Instance.isNext = false;
+        SceneManager.LoadScene(_startSceneCount);
+    }
     private void StartButton()
     {
+
         GameManager.Instance.gameStat = GameManager.GameStat.start;
+
         startPanel.SetActive(false);
 
+        PlacementSystem.Instance.ObjectPlacement();
+        TaskUISystem.Instance.UIPlacement();
+        CounterSystem.Instance.CounterStart();
     }
     private IEnumerator WinButton()
     {
@@ -130,6 +200,7 @@ public class Buttons : MonoSingleton<Buttons>
         MoneySystem.Instance.MoneyTextRevork(gameManager.addedMoney);
         yield return new WaitForSeconds(finishWaitTime);
 
+
         gameManager.SetLevel();
 
         SceneManager.LoadScene(_startSceneCount);
@@ -139,8 +210,8 @@ public class Buttons : MonoSingleton<Buttons>
         GameManager gameManager = GameManager.Instance;
 
         _winPrizeButton.enabled = false;
-        BarSystem.Instance.BarStopButton(gameManager.addedMoney);
         yield return new WaitForSeconds(finishWaitTime);
+
 
         gameManager.SetLevel();
 
@@ -148,8 +219,10 @@ public class Buttons : MonoSingleton<Buttons>
     }
     private IEnumerator FailButton()
     {
+        Load.Instance.isNext = true;
         MoneySystem.Instance.MoneyTextRevork(GameManager.Instance.addedMoney);
         yield return new WaitForSeconds(finishWaitTime);
+
 
         SceneManager.LoadScene(_startSceneCount);
     }
