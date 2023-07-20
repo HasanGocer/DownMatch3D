@@ -66,8 +66,6 @@ public class PlacementSystem : MonoSingleton<PlacementSystem>
     {
         ItemData itemData = ItemData.Instance;
 
-        CameraMove.Instance.maxTargetPos.y = itemData.field.floorCount;
-
         xSizeDis = itemData.field.floorCount;
         ySizeDis = 360 / 15;
 

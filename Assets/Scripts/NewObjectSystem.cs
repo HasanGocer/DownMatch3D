@@ -11,27 +11,36 @@ public class NewObjectSystem : MonoSingleton<NewObjectSystem>
         ItemData itemData = ItemData.Instance;
         PlacementSystem placementSystem = PlacementSystem.Instance;
 
-        int roomCount, childCount;
+        int floorCount;
 
         for (int i1 = 0; i1 < placementSystem.ySizeDis; i1++)
         {
-            roomCount = 0;
-            while (!placementSystem.floorBool[itemData.field.floorCount - 1 - roomCount, i1])
-            {
-                roomCount++;
-                if (itemData.field.floorCount - 1 - roomCount == -1) break;
-            }
+            floorCount = 0;
 
-            if (roomCount != 0)
-                for (int i2 = 0; i2 < roomCount; i2++)
-                {
-                    childCount = Random.Range(0, 4);
-                    childCount += ItemData.Instance.field.objectCount;
-                    childCount = childCount % placementSystem.objectCount;
-                    GameObject obj = placementSystem.AddObject(itemData.field.floorCount - 1 - i2, i1, childCount);
-                    obj.transform.position += new Vector3(0, 4, 0);
-                    StartCoroutine(ObjectManager.Instance.Move(obj, placementSystem.apartmentPos[itemData.field.floorCount - 1 - i2, i1]));
-                }
+            CheckRoomCount(ref floorCount, i1, itemData.field.floorCount - 1, placementSystem);
+
+            if (floorCount != 0)
+                for (int i2 = 0; i2 < floorCount; i2++)
+                    GetNewObject(itemData.field.floorCount - 1 - i2, i1, placementSystem);
         }
+    }
+
+    private void CheckRoomCount(ref int floorCount, int roomCount, int maxFloorCount, PlacementSystem placementSystem)
+    {
+        while (!placementSystem.floorBool[maxFloorCount - floorCount, roomCount])
+        {
+            floorCount++;
+            if (maxFloorCount - floorCount == -1) break;
+        }
+    }
+    private void GetNewObject(int floorCount, int roomCount, PlacementSystem placementSystem)
+    {
+        int childCount = Random.Range(0, 4);
+        childCount += ItemData.Instance.field.objectCount;
+        childCount = childCount % placementSystem.objectCount;
+        GameObject obj = placementSystem.AddObject(floorCount, roomCount, childCount);
+        obj.transform.position += new Vector3(0, 4, 0);
+        StartCoroutine(ObjectManager.Instance.Move(obj, placementSystem.apartmentPos[floorCount, roomCount]));
+
     }
 }

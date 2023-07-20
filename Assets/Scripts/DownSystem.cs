@@ -15,7 +15,6 @@ public class DownSystem : MonoSingleton<DownSystem>
         bool isFinish = false;
 
         if (!placementSystem.floorBool[floorCount, roomCount])
-        {
             for (int i = floorCount + 1; i < ItemData.Instance.field.floorCount; i++)
                 if (placementSystem.floorBool[i, roomCount])
                 {
@@ -24,56 +23,9 @@ public class DownSystem : MonoSingleton<DownSystem>
                         DownTime(i, roomCount);
                     break;
                 }
-        }
 
-
-        /*
         if (!isFinish)
-            for (int i = placementSystem.floor.Count - 1; i > floorCount + 1; i--)
-            {
-                if (roomCount == 0)
-                {
-                    if (placementSystem.floorBool[i, placementSystem.floor[0].transform.childCount - 1])
-                    {
-                        ChangeRoom(floorCount, roomCount, i, placementSystem.floor[0].transform.childCount - 1, ref isFinish);
-                        break;
-                    }
-                    else if (placementSystem.floorBool[i, roomCount + 1])
-                    {
-                        ChangeRoom(floorCount, roomCount, i, roomCount + 1, ref isFinish);
-                        break;
-                    }
-                }
-                else if (roomCount == placementSystem.floor[0].transform.childCount - 1)
-                {
-                    if (placementSystem.floorBool[i, roomCount - 1])
-                    {
-                        ChangeRoom(floorCount, roomCount, i, roomCount - 1, ref isFinish);
-                        break;
-                    }
-                    else if (placementSystem.floorBool[i, 0])
-                    {
-                        ChangeRoom(floorCount, roomCount, i, 0, ref isFinish);
-                        break;
-                    }
-                }
-                else
-                {
-                    if (placementSystem.floorBool[i, roomCount - 1])
-                    {
-                        ChangeRoom(floorCount, roomCount, i, roomCount - 1, ref isFinish);
-                        break;
-                    }
-                    else if (placementSystem.floorBool[i, roomCount + 1])
-                    {
-                        ChangeRoom(floorCount, roomCount, i, roomCount + 1, ref isFinish);
-                        break;
-                    }
-                }
-            }
-        
-        if (!isFinish)
-            ObjectManager.Instance.isFree = false;*/
+            ObjectManager.Instance.isFree = false;
     }
 
     private void ChangeRoom(int floorCount, int roomCount, int finishFloorCount, int finishRoomCount, ref bool isFinish)

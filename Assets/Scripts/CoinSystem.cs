@@ -20,25 +20,24 @@ public class CoinSystem : MonoSingleton<CoinSystem>
     {
         if (_comboCount == 1)
         {
-            _comboCount++;
-            _comboBar.fillAmount = 1;
-            _barLerpCount = 0;
-            _comboText.text = _comboCount.ToString();
-
+            CoinSystemReset();
             StartCoroutine(CoinMove());
             StartCoroutine(ComboBarStart());
         }
         else
         {
-            _comboCount++;
-            _comboBar.fillAmount = 1;
-            _barLerpCount = 0;
-            _comboText.text = _comboCount.ToString();
-
+            CoinSystemReset();
             StartCoroutine(CoinMove());
         }
     }
 
+    private void CoinSystemReset()
+    {
+        _comboCount++;
+        _comboBar.fillAmount = 1;
+        _barLerpCount = 0;
+        _comboText.text = _comboCount.ToString();
+    }
     private IEnumerator ComboBarStart()
     {
         while (GameManager.Instance.gameStat == GameManager.GameStat.start)
@@ -46,7 +45,7 @@ public class CoinSystem : MonoSingleton<CoinSystem>
             _barLerpCount += Time.deltaTime * _comboSpeed * _comboCount;
             _comboBar.fillAmount = Mathf.Lerp(1, 0, _barLerpCount);
             yield return new WaitForSecondsRealtime(Time.deltaTime);
-            if (_comboBar.fillAmount <= 0.005)
+            if (_comboBar.fillAmount <= 0)
             {
                 _comboCount = 1;
                 _comboText.text = _comboCount.ToString();
@@ -59,8 +58,7 @@ public class CoinSystem : MonoSingleton<CoinSystem>
     {
         List<GameObject> coins = new List<GameObject>();
 
-        for (int i = 0; i < _coinCount + _comboCount; i++)
-            coins.Add(ObjectPool.Instance.GetPooledObject(_OPCoinCount, _StartPos.transform.position, _parent.transform));
+        GetCoins(ref coins);
 
         foreach (GameObject item in coins)
         {
@@ -68,7 +66,19 @@ public class CoinSystem : MonoSingleton<CoinSystem>
             MoneySystem.Instance.MoneyTextRevork(Random.Range(2, 8));
             yield return new WaitForSeconds(0.1f);
         }
+
         yield return new WaitForSeconds(1);
+
+        GetBackCoins(ref coins);
+    }
+
+    private void GetCoins(ref List<GameObject> coins)
+    {
+        for (int i = 0; i < _coinCount + _comboCount; i++)
+            coins.Add(ObjectPool.Instance.GetPooledObject(_OPCoinCount, _StartPos.transform.position, _parent.transform));
+    }
+    private void GetBackCoins(ref List<GameObject> coins)
+    {
         foreach (GameObject item in coins)
         {
             ObjectPool.Instance.AddObject(_OPCoinCount, item);
