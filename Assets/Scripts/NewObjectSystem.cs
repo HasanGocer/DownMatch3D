@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class NewObjectSystem : MonoSingleton<NewObjectSystem>
 {
-    [SerializeField] int _maxMisObjectCount;
-
     public void CheckFloor()
     {
         ItemData itemData = ItemData.Instance;

@@ -10,15 +10,15 @@ public class CameraMove : MonoSingleton<CameraMove>
 
     [SerializeField] Transform _target;
 
-    [SerializeField] float _CamDistance;
     [SerializeField] float _yDistance;
     [SerializeField] float _distanceFactor;
 
-    public GameObject focusObject;
+    [HideInInspector] public GameObject focusObject;
     public bool isObjectTouch, isMove;
+
     public void Start()
     {
-        focusObject.transform.position = new Vector3(0, ItemData.Instance.field.floorCount / 2, _distanceFactor * _yDistance);
+        transform.position = new Vector3(0, ItemData.Instance.field.floorCount / 2, _distanceFactor * _yDistance);
     }
 
 

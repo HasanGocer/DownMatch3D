@@ -26,7 +26,8 @@ public class ItemData : MonoSingleton<ItemData>
         fieldPrice.floorCount = fieldPrice.floorCount * factor.floorCount;
         field.objectCount = standart.objectCount + (factor.objectCount * constant.objectCount);
         fieldPrice.objectCount = fieldPrice.objectCount * factor.objectCount;
-
+        field.counterCount = standart.counterCount + (factor.counterCount * constant.counterCount);
+        fieldPrice.counterCount = fieldPrice.counterCount * factor.counterCount;
 
         /*
          field.objectCount = standart.objectCount + (factor.objectCount * constant.objectCount);
@@ -52,6 +53,13 @@ public class ItemData : MonoSingleton<ItemData>
             field.objectCount = standart.objectCount + (factor.objectCount * constant.objectCount);
             fieldPrice.objectCount = fieldPrice.objectCount / (factor.objectCount - 1);
             fieldPrice.objectCount = fieldPrice.objectCount * factor.objectCount;
+        }
+        if (factor.counterCount > maxFactor.counterCount)
+        {
+            factor.counterCount = maxFactor.counterCount;
+            field.counterCount = standart.counterCount + (factor.counterCount * constant.counterCount);
+            fieldPrice.counterCount = fieldPrice.counterCount / (factor.counterCount - 1);
+            fieldPrice.counterCount = fieldPrice.counterCount * factor.counterCount;
         }
 
 
@@ -118,6 +126,24 @@ public class ItemData : MonoSingleton<ItemData>
             field.objectCount = standart.objectCount + (factor.objectCount * constant.objectCount);
             fieldPrice.objectCount = fieldPrice.objectCount / (factor.objectCount - 1);
             fieldPrice.objectCount = fieldPrice.objectCount * factor.objectCount;
+        }
+
+        GameManager.Instance.FactorPlacementWrite(factor);
+    }
+    public void SetCounterCount()
+    {
+        factor.counterCount++;
+
+        field.counterCount = standart.objectCount + (factor.objectCount * constant.objectCount);
+        fieldPrice.counterCount = fieldPrice.objectCount / (factor.objectCount - 1);
+        fieldPrice.counterCount = fieldPrice.objectCount * factor.objectCount;
+
+        if (factor.counterCount > maxFactor.counterCount)
+        {
+            factor.counterCount = maxFactor.counterCount;
+            field.counterCount = standart.counterCount + (factor.counterCount * constant.counterCount);
+            fieldPrice.counterCount = fieldPrice.counterCount / (factor.counterCount - 1);
+            fieldPrice.counterCount = fieldPrice.counterCount * factor.counterCount;
         }
 
         GameManager.Instance.FactorPlacementWrite(factor);

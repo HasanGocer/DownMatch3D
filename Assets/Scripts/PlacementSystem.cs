@@ -8,18 +8,18 @@ public class PlacementSystem : MonoSingleton<PlacementSystem>
 
     public int objectCount;
     [HideInInspector] public int xSizeDis, ySizeDis;
-    [SerializeField] GameObject _main, _mainCylinder;
+    [SerializeField] GameObject _mainCylinder;
 
     public bool[,] floorBool;
     public GameObject[,] apartment, apartmentPos;
 
     public void FinishPartical()
     {
-        ParticalManager.Instance.CalLFinishPartical(_main);
+        ParticalManager.Instance.CalLFinishPartical(_mainCylinder);
     }
     public void finishTime()
     {
-        StartCoroutine(FinishMove(_main, _main.transform.position));
+        StartCoroutine(FinishMove(_mainCylinder, _mainCylinder.transform.position));
     }
 
     public void ObjectBack(GameObject obj)
@@ -37,7 +37,7 @@ public class PlacementSystem : MonoSingleton<PlacementSystem>
         obj.transform.SetParent(null);
         apartment[floorCount, roomCount] = null;
         apartment[floorCount, roomCount] = obj;
-        obj.transform.SetParent(_main.transform);
+        obj.transform.SetParent(_mainCylinder.transform);
         ObjectID objectID = obj.GetComponent<ObjectID>();
         objectID.childs[childCount].SetActive(true);
 
@@ -142,7 +142,7 @@ public class PlacementSystem : MonoSingleton<PlacementSystem>
             yield return null;
         }
 
-        _main.SetActive(false);
+        _mainCylinder.SetActive(false);
         FinishPartical();
 
         LevelManager.Instance.LevelCheck();

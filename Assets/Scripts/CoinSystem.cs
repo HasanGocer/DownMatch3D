@@ -9,7 +9,7 @@ public class CoinSystem : MonoSingleton<CoinSystem>
 {
     [SerializeField] int _OPCoinCount;
     [SerializeField] int _coinCount;
-    [SerializeField] int _comboCount;
+    int _comboCount = 1;
     [SerializeField] float _comboSpeed;
     [SerializeField] GameObject _parent, _StartPos, _finishPos;
     [SerializeField] Image _comboBar;

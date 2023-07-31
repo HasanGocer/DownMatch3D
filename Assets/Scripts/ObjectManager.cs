@@ -5,7 +5,6 @@ using DG.Tweening;
 
 public class ObjectManager : MonoSingleton<ObjectManager>
 {
-    public int tempObjectCount;
     public bool isFree;
 
     public IEnumerator Move(GameObject moveObj, GameObject finishPos)

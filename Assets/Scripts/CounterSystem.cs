@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CounterSystem : MonoSingleton<CounterSystem>
 {
-    public int counterCount;
+    [HideInInspector] public int counterCount;
 
     public void CounterStart()
     {
