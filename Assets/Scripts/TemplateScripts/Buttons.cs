@@ -12,7 +12,7 @@ public class Buttons : MonoSingleton<Buttons>
     [Space(10)]
 
     [SerializeField] private GameObject _globalPanel;
-    public TMP_Text moneyText, levelText, nextLevelText;
+    public TMP_Text moneyText, levelText;
 
     [Header("Start_Panel")]
     [Space(10)]
@@ -35,9 +35,8 @@ public class Buttons : MonoSingleton<Buttons>
     [Space(10)]
 
     public GameObject winPanel;
-    public GameObject failPanel, newObjectPanel;
-    public GameObject newObjectGO;
-    [SerializeField] private Button _winPrizeButton, _winEmptyButton, _failButton, _newObjectButton;
+    public GameObject failPanel;
+    [SerializeField] private Button _winPrizeButton, _failButton;
     [SerializeField] int finishWaitTime;
 
     [Header("Loading_Panel")]
@@ -53,8 +52,7 @@ public class Buttons : MonoSingleton<Buttons>
     {
         ButtonPlacement();
         SettingPlacement();
-        levelText.text = GameManager.Instance.level.ToString();
-        nextLevelText.text = (GameManager.Instance.level + 1).ToString();
+        levelText.text = "Level " + GameManager.Instance.level.ToString();
     }
 
     public IEnumerator LoadingScreen()
@@ -119,12 +117,6 @@ public class Buttons : MonoSingleton<Buttons>
         }
 
     }
-    public IEnumerator NoThanxOnActive()
-    {
-        _winEmptyButton.gameObject.SetActive(false);
-        yield return new WaitForSeconds(3);
-        _winEmptyButton.gameObject.SetActive(true);
-    }
 
     public void SettingPanelOff()
     {
@@ -161,19 +153,11 @@ public class Buttons : MonoSingleton<Buttons>
         _soundButton.onClick.AddListener(SoundButton);
         _vibrationButton.onClick.AddListener(VibrationButton);
         _winPrizeButton.onClick.AddListener(() => StartCoroutine(WinPrizeButton()));
-        _winEmptyButton.onClick.AddListener(() => StartCoroutine(WinButton()));
         _failButton.onClick.AddListener(() => StartCoroutine(FailButton()));
         _startButton.onClick.AddListener(StartButton);
         _homeButton.onClick.AddListener(HomeButton);
-        _newObjectButton.onClick.AddListener(NewObjectButton);
     }
 
-    private void NewObjectButton()
-    {
-        winPanel.SetActive(true);
-        newObjectPanel.SetActive(false);
-        newObjectGO.SetActive(false);
-    }
     private void HomeButton()
     {
         Load.Instance.isNext = false;
@@ -190,7 +174,7 @@ public class Buttons : MonoSingleton<Buttons>
         TaskUISystem.Instance.UIPlacement();
         CounterSystem.Instance.CounterStart();
     }
-    private IEnumerator WinButton()
+    private IEnumerator WinPrizeButton()
     {
         GameManager gameManager = GameManager.Instance;
 
@@ -198,18 +182,6 @@ public class Buttons : MonoSingleton<Buttons>
         gameManager.SetLevel();
         BarSystem.Instance.BarStopButton(0);
         MoneySystem.Instance.MoneyTextRevork(gameManager.addedMoney);
-        yield return new WaitForSeconds(finishWaitTime);
-
-
-        gameManager.SetLevel();
-
-        SceneManager.LoadScene(_startSceneCount);
-    }
-    private IEnumerator WinPrizeButton()
-    {
-        GameManager gameManager = GameManager.Instance;
-
-        _winPrizeButton.enabled = false;
         yield return new WaitForSeconds(finishWaitTime);
 
 
