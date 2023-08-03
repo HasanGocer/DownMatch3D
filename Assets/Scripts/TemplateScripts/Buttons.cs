@@ -179,11 +179,8 @@ public class Buttons : MonoSingleton<Buttons>
         GameManager gameManager = GameManager.Instance;
 
         _winPrizeButton.enabled = false;
-        gameManager.SetLevel();
-        BarSystem.Instance.BarStopButton(0);
         MoneySystem.Instance.MoneyTextRevork(gameManager.addedMoney);
         yield return new WaitForSeconds(finishWaitTime);
-
 
         gameManager.SetLevel();
 
