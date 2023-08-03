@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class ObjectManager : MonoSingleton<ObjectManager>
 {
-    public bool isFree;
+    public bool isFree = true;
 
     public IEnumerator Move(GameObject moveObj, GameObject finishPos)
     {
@@ -30,6 +30,7 @@ public class ObjectManager : MonoSingleton<ObjectManager>
         {
             List<ObjectID> objectIDs = new List<ObjectID>();
 
+            CounterSystem.Instance.CounterDown();
             Vibration.Vibrate(30);
 
             foreach (GameObject item in objs)
@@ -61,7 +62,6 @@ public class ObjectManager : MonoSingleton<ObjectManager>
                 DownSystem.Instance.AllDown(item);
                 item.childs[item.childCount].SetActive(false);
                 PlacementSystem.Instance.ObjectBack(item.gameObject);
-                SoundSystem.Instance.CallBombSound();
                 ParticalManager.Instance.CallObjectMergePartical(item.gameObject);
             }
 

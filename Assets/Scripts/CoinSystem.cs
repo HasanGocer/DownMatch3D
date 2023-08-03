@@ -75,7 +75,10 @@ public class CoinSystem : MonoSingleton<CoinSystem>
     private void GetCoins(ref List<GameObject> coins)
     {
         for (int i = 0; i < _coinCount + _comboCount; i++)
+        {
             coins.Add(ObjectPool.Instance.GetPooledObject(_OPCoinCount, _StartPos.transform.position, _parent.transform));
+            coins[i].transform.localScale = Vector3.one;
+        }
     }
     private void GetBackCoins(ref List<GameObject> coins)
     {

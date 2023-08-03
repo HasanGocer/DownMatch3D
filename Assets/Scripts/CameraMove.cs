@@ -51,7 +51,7 @@ public class CameraMove : MonoSingleton<CameraMove>
     }
     private void MovedTime()
     {
-        if (10 < Mathf.Abs(_firstPos.x - touch.position.x))
+        if (10 < touch.deltaPosition.x)
         {
             _targetPos.x -= (touch.position.x - _firstPos.x) / (Camera.main.pixelWidth / 250);
             _target.transform.rotation = Quaternion.Euler(new Vector3(0, _targetPos.x, 0));

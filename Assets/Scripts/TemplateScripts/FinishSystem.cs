@@ -6,7 +6,7 @@ public class FinishSystem : MonoSingleton<FinishSystem>
 {
     public void CheckFail()
     {
-        if (GameManager.Instance.gameStat == GameManager.GameStat.start && CounterSystem.Instance.counterCount <= 0)
+        if (GameManager.Instance.gameStat == GameManager.GameStat.start && CounterSystem.Instance.GetCounterCount() <= 0)
             Buttons.Instance.failPanel.SetActive(true);
     }
 

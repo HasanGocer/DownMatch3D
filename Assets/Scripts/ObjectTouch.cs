@@ -20,9 +20,8 @@ public class ObjectTouch : MonoBehaviour
         ObjectManager objectManager = ObjectManager.Instance;
         CameraMove.Instance.isObjectTouch = false;
 
-        if (GameManager.Instance.gameStat == GameManager.GameStat.start && objectManager.isFree && !isFree && CounterSystem.Instance.counterCount > 0)
+        if (GameManager.Instance.gameStat == GameManager.GameStat.start && objectManager.isFree && !isFree && CounterSystem.Instance.GetCounterCount() > 0)
         {
-            CounterSystem.Instance.counterCount--;
             firstPos = Input.GetTouch(0).position;
             isFree = true;
             objectManager.isFree = false;
@@ -30,12 +29,13 @@ public class ObjectTouch : MonoBehaviour
             objs.Add(gameObject);
             int childCount = objectID.childCount;
 
+
             UpTime(ref objs, objectID.floorCount + 1, objectID.roomCount, childCount);
             DownTime(ref objs, objectID.floorCount - 1, objectID.roomCount, childCount);
             LeftTime(ref objs, objectID.floorCount, objectID.roomCount - 1, childCount);
             RightTime(ref objs, objectID.floorCount, objectID.roomCount + 1, childCount);
             if (objs.Count >= 3)
-                StartSystem.Instance.StartTime(objs.Count, firstPos);
+                CoinSystem.Instance.CoinStart();
             objectManager.OffTime(objs);
 
             isFree = false;

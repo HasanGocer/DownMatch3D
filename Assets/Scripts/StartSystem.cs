@@ -35,7 +35,6 @@ public class StartSystem : MonoSingleton<StartSystem>
             for (int i = 0; i < 1; i++)
             {
                 MoneySystem.Instance.MoneyTextRevork(1);
-                SoundSystem.Instance.CallStarSound();
                 yield return new WaitForSeconds(0.1f);
             }
         }
@@ -55,7 +54,6 @@ public class StartSystem : MonoSingleton<StartSystem>
             for (int i = 0; i < 3; i++)
             {
                 MoneySystem.Instance.MoneyTextRevork(1);
-                SoundSystem.Instance.CallStarSound();
                 yield return new WaitForSeconds(0.1f);
             }
         }
@@ -75,7 +73,6 @@ public class StartSystem : MonoSingleton<StartSystem>
             for (int i = 0; i < chidCount - 2; i++)
             {
                 MoneySystem.Instance.MoneyTextRevork(1);
-                SoundSystem.Instance.CallStarSound();
                 yield return new WaitForSeconds(0.1f);
             }
         }

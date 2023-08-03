@@ -20,16 +20,16 @@ public class SoundSystem : MonoSingleton<SoundSystem>
         mainSource.volume = 0;
     }
 
-    public void CallStarSound()
-    {
-        mainSource.PlayOneShot(star);
-    }
-    public void CallFinishSound()
-    {
-        mainSource.PlayOneShot(finish);
-    }
-    public void CallBombSound()
-    {
-        mainSource.PlayOneShot(bomb);
-    }
+    /* public void CallStarSound()
+     {
+         mainSource.PlayOneShot(star);
+     }
+     public void CallFinishSound()
+     {
+         mainSource.PlayOneShot(finish);
+     }
+     public void CallBombSound()
+     {
+         mainSource.PlayOneShot(bomb);
+     }*/
 }
